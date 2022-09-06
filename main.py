@@ -1,3 +1,5 @@
+from asyncio import create_task
+
 from aiogram import executor
 from loguru import logger
 
@@ -8,10 +10,12 @@ from src.Middlewares import (
     SetupRoleMiddleware,
     TranslationMiddleware
 )
+from src.Services import ScheduleService, BinanceService
+import requests as r
 
 
 async def on_startup(x):
-    logger.info('Bot started')
+    create_task(ScheduleService.run_schedule())
 
 
 async def on_shutdown(x):

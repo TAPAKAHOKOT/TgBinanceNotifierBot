@@ -19,5 +19,7 @@ multidict==6.0.2
 psycopg2-binary==2.9.3
 python-dotenv==0.19.2
 pytz==2022.1
+requests==2.28.1
 SQLAlchemy==1.4.35
+urllib3==1.26.12
 yarl==1.7.2

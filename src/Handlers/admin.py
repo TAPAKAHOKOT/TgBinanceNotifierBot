@@ -1,11 +1,9 @@
 from aiogram import types
-from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 
 from Configs import translations
 from Settings import settings
 from src.Filters.RolesFilter import IsRootFilter
-from src.Services import WriteToAllUsersService
 from src.States import WriteToAllUsersForm
 
 

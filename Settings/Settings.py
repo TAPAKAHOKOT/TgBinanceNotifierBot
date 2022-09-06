@@ -23,3 +23,7 @@ class Settings:
 
         self.dp = Dispatcher(self.bot, storage=MemoryStorage())
         logger.info('Created Dispatcher')
+
+        self.binance_data = {
+            'max_price': -1
+        }

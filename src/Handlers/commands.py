@@ -14,5 +14,5 @@ async def command_start_example(message: types.Message):
             user_name=message['from']['first_name'],
             bot_name=(await settings.bot.get_me()).first_name
         ),
-        reply_markup=CommandsKeyboards.get_main_keyboard()
+        reply_markup=CommandsKeyboards.get_start_keyboard()
     )
