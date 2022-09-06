@@ -20,6 +20,7 @@ config.set_section_option(section, "DB", getenv("DB"))
 config.set_section_option(section, "DB_USER", getenv("DB_USER"))
 config.set_section_option(section, "DB_PASS", getenv("DB_PASS"))
 config.set_section_option(section, "DB_HOST", getenv("DB_HOST"))
+config.set_section_option(section, "DB_PORT", getenv("DB_PORT"))
 config.set_section_option(section, "DB_NAME", getenv("DB_NAME"))
 
 # Interpret the config file for Python logging.
