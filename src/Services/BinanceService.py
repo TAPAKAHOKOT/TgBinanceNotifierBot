@@ -7,22 +7,25 @@ from Settings import settings
 class BinanceService:
     @staticmethod
     async def check_if_price_increased():
-        max_price, user_no, nickname = await BinanceService.get_max_price_data()
+        max_price, user_no, nickname, is_duplicate_price = await BinanceService.get_max_price_data()
 
-        if max_price > settings.binance_data['max_price']:
-            await BinanceService.notify_price_go_up(max_price, user_no, nickname)
+        if (max_price > settings.binance_data['max_price']) or is_duplicate_price:
+            await BinanceService.notify_price_go_up(max_price, user_no, nickname, is_duplicate_price)
         elif max_price < settings.binance_data['max_price']:
-            await BinanceService.notify_price_go_up(max_price, user_no, nickname, False)
+            await BinanceService.notify_price_go_up(max_price, user_no, nickname, is_duplicate_price, False)
 
         settings.binance_data['max_price'] = max_price
 
     @staticmethod
-    async def notify_price_go_up(max_price, user_no: str, nickname: str, is_up: bool = True):
+    async def notify_price_go_up(max_price, user_no: str, nickname: str, is_duplicate_price: bool, is_up: bool = True):
         message = f'Макс. цена выросла📈: {max_price}' if is_up else f'Макс. цена упала📉: {max_price}'
 
         message += f'\n\nПо причине пидарасс ( ╬ಠ益ಠ ): {nickname}' if\
             user_no != settings.binance_data['Aleshka_No'] else\
             '\n\nТы красавчик💪💪'
+
+        if is_duplicate_price:
+            message = f'Пидарасс {nickname} копирует цену {max_price}\n\n( ╬ಠ益ಠ )( ╬ಠ益ಠ )( ╬ಠ益ಠ )'
 
         for admin in settings.admins:
             try:
@@ -38,7 +41,7 @@ class BinanceService:
         data = {
             "proMerchantAds": False,
             "page": 1,
-            "rows": 1,
+            "rows": 2,
             "payTypes": [
                 "Mobiletopup"
             ],
@@ -70,8 +73,14 @@ class BinanceService:
         if len(json_res['data']) <= 0:
             return -1
 
+        is_duplicate_price = False
+        if len(json_res['data']) > 1:
+            is_duplicate_price = \
+                float(json_res['data'][0]['adv']['price']) == float(json_res['data'][1]['adv']['price'])
+
         return (
             float(json_res['data'][0]['adv']['price']),
             json_res['data'][0]['advertiser']['userNo'],
-            json_res['data'][0]['advertiser']['nickName']
+            json_res['data'][0]['advertiser']['nickName'],
+            is_duplicate_price
         )
