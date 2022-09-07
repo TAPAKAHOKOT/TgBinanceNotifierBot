@@ -25,5 +25,6 @@ class Settings:
         logger.info('Created Dispatcher')
 
         self.binance_data = {
-            'max_price': -1
+            'max_price': -1,
+            'Aleshka_No': 's0ceff263993230dfb14dca326e709fd0'
         }

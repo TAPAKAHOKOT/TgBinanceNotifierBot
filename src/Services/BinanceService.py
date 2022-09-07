@@ -7,28 +7,34 @@ from Settings import settings
 class BinanceService:
     @staticmethod
     async def check_if_price_increased():
-        max_price = await BinanceService.get_max_price()
+        max_price, user_no, nickname = await BinanceService.get_max_price_data()
 
         if max_price > settings.binance_data['max_price']:
-            await BinanceService.notify_price_go_up(max_price)
+            await BinanceService.notify_price_go_up(max_price, user_no, nickname)
         elif max_price < settings.binance_data['max_price']:
-            await BinanceService.notify_price_go_up(max_price, False)
+            await BinanceService.notify_price_go_up(max_price, user_no, nickname, False)
 
         settings.binance_data['max_price'] = max_price
 
     @staticmethod
-    async def notify_price_go_up(max_price, is_up: bool = True):
+    async def notify_price_go_up(max_price, user_no: str, nickname: str, is_up: bool = True):
+        message = f'Макс. цена выросла📈: {max_price}' if is_up else f'Макс. цена упала📉: {max_price}'
+
+        message += f'\n\nПо причине пидарасс ( ╬ಠ益ಠ ): {nickname}' if\
+            user_no != settings.binance_data['Aleshka_No'] else\
+            '\n\nТы красавчик💪💪'
+
         for admin in settings.admins:
             try:
                 await settings.bot.send_message(
                     chat_id=admin,
-                    text=f'Макс. цена выросла📈: {max_price}' if is_up else f'Макс. цена упала📉: {max_price}'
+                    text=message
                 )
             except ChatNotFound:
                 pass
 
     @staticmethod
-    async def get_max_price():
+    async def get_max_price_data():
         data = {
             "proMerchantAds": False,
             "page": 1,
@@ -64,4 +70,8 @@ class BinanceService:
         if len(json_res['data']) <= 0:
             return -1
 
-        return float(json_res['data'][0]['adv']['price'])
+        return (
+            float(json_res['data'][0]['adv']['price']),
+            json_res['data'][0]['advertiser']['userNo'],
+            json_res['data'][0]['advertiser']['nickName']
+        )
