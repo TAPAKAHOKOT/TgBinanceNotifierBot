@@ -13,6 +13,8 @@ class BinanceService:
 
         if is_duplicate_price:
             settings.binance_data['duplicate_price'] = max_price
+        else:
+            settings.binance_data['duplicate_price'] = -1
 
         if (max_price > settings.binance_data['max_price']) or notify_is_duplicate_price:
             await BinanceService.notify_price_go_up(max_price, user_no, nickname, notify_is_duplicate_price)
