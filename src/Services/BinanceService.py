@@ -10,16 +10,16 @@ class BinanceService:
         max_price = await BinanceService.get_max_price()
 
         if max_price > settings.binance_data['max_price']:
-            settings.binance_data['max_price'] = max_price
-            await BinanceService.notify_price_go_up(max_price)
+            await BinanceService.notify_price_go_up(max_price, False)
+        settings.binance_data['max_price'] = max_price
 
     @staticmethod
-    async def notify_price_go_up(max_price):
+    async def notify_price_go_up(max_price, is_up: bool = True):
         for admin in settings.admins:
             try:
                 await settings.bot.send_message(
                     chat_id=admin,
-                    text=f'Цена выросла: {max_price}'
+                    text=f'Макс. цена выросла: {max_price}' if is_up else f'Макс. цена упала: {max_price}'
                 )
             except ChatNotFound:
                 pass
