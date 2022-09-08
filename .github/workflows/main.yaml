@@ -1,0 +1,25 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploying
+      uses: appleboy/ssh-action@master
+      with:
+        host: 91.227.18.41
+        username: root
+        key: ${{ secrets.SECRET_KEY }}
+        port: 22
+        script: |
+          git -C "/TgBinanceNotifierBot" pull
+          cd /TgBinanceNotifierBot
+          docker-compose down
+          docker-compose rm -fsv
+          docker-compose up -d --build
