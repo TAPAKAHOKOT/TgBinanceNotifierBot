@@ -9,6 +9,10 @@ class BinanceService:
     async def check_if_price_increased():
         max_price, user_no, nickname, duplicate_nickname, is_duplicate_price = await BinanceService.get_max_price_data()
 
+        if settings.binance_data['max_price'] == -1:
+            settings.binance_data['max_price'] = max_price
+            return
+
         notify_is_duplicate_price = (settings.binance_data['duplicate_price'] != max_price) and is_duplicate_price
 
         if is_duplicate_price:
