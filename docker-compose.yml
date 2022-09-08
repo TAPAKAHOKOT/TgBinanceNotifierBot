@@ -14,19 +14,11 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_DB=${DB_NAME}
     command: -p ${DB_PORT}
-  binance_bot_migration:
-    container_name: binance_bot_migration
-    links:
-      -   binance_bot_db
-    depends_on:
-      -   binance_bot_db
-    build: .
-    command: alembic upgrade head
   binance_bot:
     container_name: binance_bot
     restart: always
     depends_on:
-      -   binance_bot_migration
+      - binance_bot_db
     build: ./
     command: python main.py
     volumes:
