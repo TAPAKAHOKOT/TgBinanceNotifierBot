@@ -29,3 +29,10 @@ class Settings:
             'Aleshka_No': 's0ceff263993230dfb14dca326e709fd0',
             'duplicate_price': -1
         }
+
+        self.webhooks_data = {
+            'path': getenv('WEBHOOK_PATH', ''),
+            'url': getenv('WEBHOOK_URL'),
+            'host': getenv('WEBAPP_HOST'),
+            'port': getenv('WEBAPP_PORT')
+        }
