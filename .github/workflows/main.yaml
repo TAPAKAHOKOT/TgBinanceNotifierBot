@@ -13,7 +13,7 @@ jobs:
     - name: Deploying
       uses: appleboy/ssh-action@master
       with:
-        host: 91.227.18.41
+        host: 91.227.18.79
         username: p2p_binance_bot
         key: ${{ secrets.SECRET_KEY }}
         port: 22
