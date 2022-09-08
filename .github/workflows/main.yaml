@@ -18,8 +18,8 @@ jobs:
         key: ${{ secrets.SECRET_KEY }}
         port: 22
         script: |
-          git -C "/TgBinanceNotifierBot" pull
-          cd /TgBinanceNotifierBot
+          git -C "/home/p2p_binance_bot/TgBinanceNotifierBot" pull
+          cd /home/p2p_binance_bot/TgBinanceNotifierBot
           docker-compose down
           docker-compose rm -fsv
           docker-compose up -d --build
