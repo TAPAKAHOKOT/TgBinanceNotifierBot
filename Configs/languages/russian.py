@@ -1,8 +1,7 @@
 translations = {
     'commands': {
         'answers': {
-            'start': 'Добро пожаловать, {user_name}!\nЯ - *{bot_name}*, помогу тебе получать уведомления из rocket. ' +
-            'Введи /help чтобы получить инструкцию',
+            'start': 'Добро пожаловать, {user_name}!\nЯ - *{bot_name}*, помогу тебе наебать весь мир.'
         }
     },
     'answers': {
