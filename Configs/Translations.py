@@ -1,6 +1,5 @@
 from loguru import logger
 
-from .languages.english import translations as english
 from .languages.russian import translations as russian
 
 
@@ -8,7 +7,6 @@ class Translations:
     def __init__(self, default_language: str):
         self.default_language = default_language
         self.all_translations = {
-            'english': english,
             'russian': russian
         }
         self.current_language = None
