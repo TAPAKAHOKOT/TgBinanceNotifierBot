@@ -18,20 +18,12 @@ services:
     container_name: binance_bot
     restart: always
     depends_on:
-      -             binance_bot_db
+      - binance_bot_db
     build: ./
     command: python main.py
     volumes:
       - ./:/usr/src/app/
     env_file:
       - ./.env
-  binance_bot_migration:
-    container_name: binance_bot_migration
-    links:
-      -   binance_bot
-    depends_on:
-      -   binance_bot
-    build: .
-    command: alembic upgrade head
 volumes:
   postgres_data:
