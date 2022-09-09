@@ -15,13 +15,13 @@ import requests as r
 
 
 async def on_startup(x):
-    await settings.bot.set_webhook(settings.webhooks_data['url'])
+    # await settings.bot.set_webhook(settings.webhooks_data['url'])
     create_task(ScheduleService.run_schedule())
 
 
 async def on_shutdown(x):
     logger.info('Bot finished')
-    await settings.bot.delete_webhook()
+    # await settings.bot.delete_webhook()
 
 
 def setup_middlewares():
@@ -42,13 +42,13 @@ def start_polling():
 
 
 if __name__ == '__main__':
-    # start_polling()
-    executor.start_webhook(
-        dispatcher=settings.dp,
-        webhook_path=settings.webhooks_data['path'],
-        on_startup=on_startup,
-        on_shutdown=on_shutdown,
-        skip_updates=True,
-        host=settings.webhooks_data['host'],
-        port=settings.webhooks_data['port'],
-    )
+    start_polling()
+    # executor.start_webhook(
+    #     dispatcher=settings.dp,
+    #     webhook_path=settings.webhooks_data['path'],
+    #     on_startup=on_startup,
+    #     on_shutdown=on_shutdown,
+    #     skip_updates=True,
+    #     host=settings.webhooks_data['host'],
+    #     port=settings.webhooks_data['port'],
+    # )
