@@ -39,11 +39,13 @@ class BinanceService:
             duplicate_nickname: str,
             is_duplicate_price: bool
     ):
-        new_price_percents = ('📈: +' if max_price < old_max_price else '📉: -') + \
-                             str(round(max_price / old_max_price * 100 * 10) / 10)
-
-        message = f'Цена изменилась{new_price_percents}%'
-        message += f'\n\nПользователь {nickname} установил цену {max_price}'
+        message = ''
+        if max_price < old_max_price:
+            message += f'Цена упала📉: {max_price} (-{round(max_price / old_max_price * 100 * 10) / 10}%)'
+            message += f'\n\nПользователь {nickname} установил цену {max_price}'
+        else:
+            message += f'Цена поднялась📈: {max_price} (+{round(max_price / old_max_price * 100 * 10) / 10}%)'
+            message += f'\n\nПользователь {nickname} установил цену {max_price}'
 
         if is_duplicate_price:
             message = f'У пользователей {nickname} и {duplicate_nickname} одинаковая цена'
