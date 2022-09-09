@@ -20,30 +20,32 @@ class BinanceService:
         else:
             settings.binance_data['duplicate_price'] = -1
 
-        if (max_price > settings.binance_data['max_price']) or notify_is_duplicate_price:
-            await BinanceService.notify_price_go_up(max_price, user_no, nickname, duplicate_nickname, notify_is_duplicate_price)
-        elif max_price < settings.binance_data['max_price']:
-            await BinanceService.notify_price_go_up(max_price, user_no, nickname, duplicate_nickname, False, False)
+        if (max_price != settings.binance_data['max_price']) or notify_is_duplicate_price:
+            await BinanceService.notify_price_go_up(
+                settings.binance_data['max_price'],
+                max_price,
+                nickname,
+                duplicate_nickname,
+                notify_is_duplicate_price
+            )
 
         settings.binance_data['max_price'] = max_price
 
     @staticmethod
     async def notify_price_go_up(
+            old_max_price,
             max_price,
-            user_no: str,
             nickname: str,
             duplicate_nickname: str,
-            is_duplicate_price: bool,
-            is_up: bool = True
+            is_duplicate_price: bool
     ):
-        message = f'Макс. цена выросла📈: {max_price}' if is_up else f'Макс. цена упала📉: {max_price}'
+        new_price_percents = round(max_price / old_max_price * 10) / 10 * (-1 if max_price < old_max_price else 1)
 
-        message += f'\n\nПо причине пидарасс ( ╬ಠ益ಠ ): {nickname}' if\
-            user_no != settings.binance_data['Aleshka_No'] else\
-            '\n\nТы красавчик💪💪'
+        message = f'Цена изменилась: {new_price_percents}%'
+        message += f'\n\nПользователь {nickname} установил цену {max_price}'
 
         if is_duplicate_price:
-            message = f'Пидарасс {duplicate_nickname} копирует цену {max_price}\n\n( ╬ಠ益ಠ )( ╬ಠ益ಠ )( ╬ಠ益ಠ )'
+            message = f'У пользователей {nickname} и {duplicate_nickname} одинаковая цена'
 
         for admin in settings.admins:
             try:
