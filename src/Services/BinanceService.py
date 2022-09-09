@@ -40,11 +40,12 @@ class BinanceService:
             is_duplicate_price: bool
     ):
         message = ''
-        if max_price < old_max_price:
-            message += f'Цена упала📉: {max_price} (-{round(max_price / old_max_price * 100 * 10) / 10}%)'
+        differ = max_price - old_max_price
+        if differ < 0:
+            message += f'Цена упала📉: {max_price} (-{round(abs(differ) / old_max_price * 100 * 10) / 10}%)'
             message += f'\n\nПользователь {nickname} установил цену {max_price}'
         else:
-            message += f'Цена поднялась📈: {max_price} (+{round(max_price / old_max_price * 100 * 10) / 10}%)'
+            message += f'Цена поднялась📈: {max_price} (+{round(abs(differ) / old_max_price * 100 * 10) / 10}%)'
             message += f'\n\nПользователь {nickname} установил цену {max_price}'
 
         if is_duplicate_price:
