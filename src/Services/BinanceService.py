@@ -45,16 +45,15 @@ class BinanceService:
         message = ''
         differ = max_price - old_max_price
         if differ < 0:
-            message += f'Цена упала📉: {max_price} (-{round(abs(differ) / old_max_price * 100 * 100) / 100}%)'
+            message += f'📉 Цена упала: {max_price} (-{round(abs(differ) / old_max_price * 100 * 100) / 100}%)'
         else:
-            message += f'Цена поднялась📈: {max_price} (+{round(abs(differ) / old_max_price * 100 * 100) / 100}%)'
-
+            message += f'📈 Цена поднялась: {max_price} (+{round(abs(differ) / old_max_price * 100 * 100) / 100}%)'
 
         if user_no == settings.binance_data['Aleshka_No']:
-            message += f'\n\nТы установил цену {max_price}'
-            message += f'\n\nТвой спред: {round((1.175-max_price/58.9)*100*100)/100}%'
+            message += f'\n\n🪙 Ты установил цену: {max_price}'
+            message += f'\n\n💸 Твой спред: {round((1.175-max_price/58.9)*100*100)/100}% 💸🪙'
         else:
-            message += f'\n\nПользователь {nickname} установил цену {max_price}'
+            message += f'\n\n🪙 Пользователь {nickname} установил цену: {max_price}'
 
         if is_duplicate_price:
             message = f'У пользователей {nickname} и {duplicate_nickname} одинаковая цена'
@@ -104,6 +103,7 @@ class BinanceService:
         except Exception as e:
             logger.error(f'Error with request: {e}')
             return -1
+
         json_res = result.json()
 
         if len(json_res['data']) <= 0:
