@@ -14,12 +14,12 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: 91.227.18.79
-        username: p2p_binance_bot
+        username: tg_binance_notifier_bot
         key: ${{ secrets.SECRET_KEY }}
         port: 22
         script: |
-          git -C "/home/p2p_binance_bot/TgBinanceNotifierBot" pull
-          cd /home/p2p_binance_bot/TgBinanceNotifierBot
+          git -C "/home/tg_binance_notifier_bot/TgBinanceNotifierBot" pull
+          cd /home/tg_binance_notifier_bot/TgBinanceNotifierBot
           docker-compose down
           docker-compose rm -fsv
           docker-compose up -d --build

@@ -47,6 +47,7 @@ class BinanceService:
         else:
             message += f'Цена поднялась📈: {max_price} (+{round(abs(differ) / old_max_price * 100 * 100) / 100}%)'
             message += f'\n\nПользователь {nickname} установил цену {max_price}'
+        message += f'\n\nТвой спред: {round((1.175-max_price/58.9)*100*100)/100}%'
 
         if is_duplicate_price:
             message = f'У пользователей {nickname} и {duplicate_nickname} одинаковая цена'
