@@ -1,5 +1,6 @@
 import requests as r
 from aiogram.utils.exceptions import ChatNotFound
+from loguru import logger
 
 from Settings import settings
 
@@ -92,7 +93,11 @@ class BinanceService:
         }
         url = 'https://p2p.binance.com/bapi/c2c/v2/friendly/c2c/adv/search'
 
-        result = r.post(url, headers=headers, json=data, timeout=3)
+        try:
+            result = r.post(url, headers=headers, json=data, timeout=3)
+        except Exception as e:
+            logger.error(f'Error with request: {e}')
+            return -1
         json_res = result.json()
 
         if len(json_res['data']) <= 0:
