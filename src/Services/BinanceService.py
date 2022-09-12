@@ -51,7 +51,7 @@ class BinanceService:
 
         if user_no == settings.binance_data['Aleshka_No']:
             message += f'\n\n🪙 Ты установил цену: {max_price}'
-            message += f'\n\n💸 Твой спред: {round((1.167-max_price/58.9)*100*100)/100}% 💸🪙'
+            message += f'\n\n💸 Твой спред: {round((1.171-max_price/58.9)*100*100)/100}% 💸🪙'
         else:
             message += f'\n\n🪙 Пользователь {nickname} установил цену: {max_price}'
 
