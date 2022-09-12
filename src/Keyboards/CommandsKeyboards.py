@@ -10,6 +10,9 @@ class CommandsKeyboards:
             types.KeyboardButton(text=''),
             types.KeyboardButton(text='/start'),
             types.KeyboardButton(text=''),
+            types.KeyboardButton(text=''),
+            types.KeyboardButton(text='/num'),
+            types.KeyboardButton(text=''),
         )
 
         return start

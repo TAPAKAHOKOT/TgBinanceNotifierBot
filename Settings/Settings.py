@@ -36,3 +36,5 @@ class Settings:
             'host': getenv('WEBAPP_HOST'),
             'port': getenv('WEBAPP_PORT')
         }
+
+        self.number = '1.171'
