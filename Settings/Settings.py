@@ -27,7 +27,7 @@ class Settings:
         self.binance_data = {
             'max_price': -1,
             'duplicate_price': -1,
-            'Aleshka_No': 's0ceff263993230dfb14dca326e709fd0'
+            'Aleshka_No': ['s0ceff263993230dfb14dca326e709fd0', 's91df547c6d4d39fc89645b8394a59bbd']
         }
 
         self.webhooks_data = {
