@@ -102,12 +102,12 @@ class BinanceService:
             result = r.post(url, headers=headers, json=data, timeout=3)
         except Exception as e:
             logger.error(f'Error with request: {e}')
-            return -1
+            return -1, -1, -1, -1, -1
 
         json_res = result.json()
 
         if len(json_res['data']) <= 0:
-            return -1
+            return -1, -1, -1, -1, -1
 
         is_duplicate_price = False
         duplicate_nickname = ''
