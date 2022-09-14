@@ -37,4 +37,4 @@ class Settings:
             'port': getenv('WEBAPP_PORT')
         }
 
-        self.number = '1.171'
+        self.number = 1.171
