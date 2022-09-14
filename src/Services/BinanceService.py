@@ -113,13 +113,13 @@ class BinanceService:
         duplicate_nickname = ''
         if len(json_res['data']) > 1:
             is_duplicate_price = \
-                float(json_res['data'][1]['adv']['price']) == float(json_res['data'][3]['adv']['price'])
-            duplicate_nickname = json_res['data'][3]['advertiser']['nickName']
+                float(json_res['data'][0]['adv']['price']) == float(json_res['data'][1]['adv']['price'])
+            duplicate_nickname = json_res['data'][1]['advertiser']['nickName']
 
         return (
-            float(json_res['data'][1]['adv']['price']),
-            json_res['data'][1]['advertiser']['userNo'],
-            json_res['data'][1]['advertiser']['nickName'],
+            float(json_res['data'][0]['adv']['price']),
+            json_res['data'][0]['advertiser']['userNo'],
+            json_res['data'][0]['advertiser']['nickName'],
             duplicate_nickname,
             is_duplicate_price
         )
