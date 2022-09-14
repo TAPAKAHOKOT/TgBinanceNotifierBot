@@ -1,5 +1,6 @@
 import requests as r
 from aiogram.utils.exceptions import ChatNotFound
+from aiogram.utils.exceptions import BotBlocked
 from loguru import logger
 
 from Settings import settings
@@ -64,7 +65,7 @@ class BinanceService:
                     chat_id=admin,
                     text=message
                 )
-            except ChatNotFound:
+            except (ChatNotFound, BotBlocked):
                 pass
 
     @staticmethod
