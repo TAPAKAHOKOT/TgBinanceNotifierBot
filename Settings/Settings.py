@@ -38,3 +38,4 @@ class Settings:
         }
 
         self.number = 1.171
+        self.spred_number = 57.9

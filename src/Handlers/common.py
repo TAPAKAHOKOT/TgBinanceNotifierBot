@@ -9,7 +9,8 @@ from Settings import settings
 async def any_message(message: types.Message):
     try:
         number = settings.number
-        await message.answer(f'Число: {number}')
+        spred_number = settings.spred_number
+        await message.answer(f'Число: {number}, Курс: {spred_number}')
     except Exception as e:
         await message.answer(f'Ошибка: {e}')
 
@@ -19,8 +20,11 @@ async def any_message(message: types.Message):
 async def any_message(message: types.Message):
     try:
         number = float(message.text)
-        settings.number = number
-        await message.answer(f'Новое число: {number}')
+        if number > 2:
+            settings.spred_number = number
+        else:
+            settings.number = number
+        await message.answer(f'Новое число: {settings.number}, Новый курс: {settings.spred_number}')
     except ValueError as e:
         await message.answer(f'Ошибка: {e}')
 
