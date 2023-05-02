@@ -15,6 +15,7 @@ import requests as r
 
 
 async def on_startup(x):
+    await settings.bot.delete_webhook()
     # await settings.bot.set_webhook(settings.webhooks_data['url'])
     create_task(ScheduleService.run_schedule())
 
