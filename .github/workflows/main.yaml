@@ -25,4 +25,3 @@ jobs:
           docker-compose up -d --build
 
           docker exec binance_bot alembic upgrade head
-          docker start binance_bot
