@@ -23,7 +23,6 @@ jobs:
           docker-compose down
           docker-compose rm -fsv
           docker-compose up -d --build
-          
-          docker stop binance_bot
+
           docker exec binance_bot alembic upgrade head
           docker start binance_bot
